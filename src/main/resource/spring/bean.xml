@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop" xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
+       xmlns:context="http://www.springframework.org/schema/context">
+    <!-- 扫描类属性方法上面是否有注解  -->
+    <context:component-scan base-package="com"></context:component-scan>
+    <!-- 如果有加载这些注解 进行解释 -->
+    <context:annotation-config></context:annotation-config>
+
+    <!-- 自动扫描执行类和方法上的面向切面注解 -->
+    <aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+
+    <!--配置增强类与被增强类-->
+    <!--<bean id="user" class="com.demo1.User"></bean>-->
+    <!--<bean id="userProxy" class="com.demo1.UserProxy"></bean>-->
+    <!--aop配置-->
+    <!--<aop:config>-->
+    <!--配置切入点-->
+    <!--<aop:pointcut expression="execution(* com..User.*(..))" id="pointcut1"/>-->
+    <!--配置切面-->
+    <!--<aop:aspect ref="userProxy">-->
+    <!--通知:前置通知-->
+    <!--<aop:before method="open" pointcut-ref="pointcut1"/>-->
+    <!--<aop:after method="close" pointcut-ref="pointcut1"/>-->
+    <!--<aop:around method="rizhi" pointcut-ref="pointcut1"/>-->
+    <!--</aop:aspect>-->
+    <!--</aop:config>-->
+</beans>

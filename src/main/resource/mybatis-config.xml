@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd"
+        >
+
+<configuration>
+    <!-- 导入其他配置文件 -->
+    <properties resource="properties/db.properties"/>
+    <!-- 相关设置，可有可无-->
+    <settings>
+        <!-- 允许JDBC支持生成的键。需要适合的驱动。如果设置为true则这个设置强制生成的键被使用，尽管一些驱动拒绝兼容但仍然有效（比如Derby） -->
+        <setting name="useGeneratedKeys" value="true"/>
+        <!-- 使用列标签代替列名。不同的驱动在这方便表现不同。参考驱动文档或充分测试两种方法来决定所使用的驱动 -->
+        <setting name="useColumnLabel" value="true"/>
+        <!--是否开启自动驼峰命名规则（camel case）映射，即从经典数据库列名 A_COLUMN 到经典 Java 属性名 aColumn的类似映射。 -->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+
+        <!-- 打开延迟加载的开关 -->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <!-- 将积极加载改为消息加载即按需加载 -->
+        <setting name="aggressiveLazyLoading" value="false"/>
+        <!-- 开启二级缓存 默认是true  -->
+        <setting name="cacheEnabled" value="true"/>
+        <!-- 打印查询语句 -->
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+
+    </settings>
+
+
+    <!-- dataSource标签是配置数据源的链接信息-->
+    <!--type属性是供我们对数据库连接方式的配置，UNPOOLED 非数据库连接池 、POOLED 数据库连接池、JNDL 数据源-->
+    <!--property标签是定义数据库的各类参数，可以直接写，也可以通过el表达式导入其他配置文件 -->
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+                <property name="driver" value="${jdbc.driver}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!--mapper标签是引入映射器，映射实体类对应的xml文件-->
+    <!--注解：<mapper class=“类的全限定名”／> XML:<mapper resource=“包名／包名／xxx.xml”> -->
+    <mappers>
+        <mapper resource="mapper/ManMapper.xml"/>
+        <mapper resource="mapper/DeptMapper.xml"/>
+        <mapper resource="mapper/CarForTypeMapper.xml"/>
+        <!--  <mapper resource="cn/alexander/dao/IStudentDAO.xml"/>-->
+        <!--<package name="mapper"></package>-->
+    </mappers>
+</configuration>
