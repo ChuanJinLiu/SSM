@@ -1,7 +1,11 @@
 package model;
 
+import java.text.ParseException;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
+
 
 public class User {
 
@@ -10,7 +14,13 @@ public class User {
     private String password;
     private int peopleId;
     private String status;
-    private Date createTime;
+    private String createTime;
+    private Integer age;
+    private Integer sex;
+    private String addr;
+    private String phone;
+    private String birth;
+    private String remark;
 
     public User() {
     }
@@ -55,12 +65,61 @@ public class User {
         this.status = status;
     }
 
-    public Date getCreateTime() {
+    public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(String createTime) {
         this.createTime = createTime;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public Integer getSex() {
+        return sex;
+    }
+
+    public void setSex(Integer sex) {
+        this.sex = sex;
+    }
+
+    public String getAddr() {
+        return addr;
+    }
+
+    public void setAddr(String addr) {
+        this.addr = addr;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getBirth() {
+        return birth;
+    }
+
+    //用于数据库查询后显示
+    public void setBirth(String birth) {
+        this.birth = birth;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 
     @Override
@@ -72,24 +131,13 @@ public class User {
                 ", peopleId=" + peopleId +
                 ", status='" + status + '\'' +
                 ", createTime=" + createTime +
+                ", age='" + age + '\'' +
+                ", sex=" + sex +
+                ", addr='" + addr + '\'' +
+                ", phone='" + phone + '\'' +
+                ", birth=" + birth +
+                ", remark='" + remark + '\'' +
                 '}';
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return id == user.id &&
-                peopleId == user.peopleId &&
-                Objects.equals(name, user.name) &&
-                Objects.equals(password, user.password) &&
-                Objects.equals(status, user.status) &&
-                Objects.equals(createTime, user.createTime);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, password, peopleId, status, createTime);
-    }
 }

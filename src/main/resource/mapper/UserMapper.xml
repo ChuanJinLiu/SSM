@@ -6,4 +6,46 @@
     <select id="findByColumn" statementType="STATEMENT" resultType="model.User" parameterType="java.util.HashMap">
         SELECT * FROM user WHERE  ${column} = ${key}
     </select>
+
+    <select id="findList" resultType="model.User">
+        SELECT * FROM user
+    </select>
+
+    <insert id="addUser" parameterType="user">
+		insert into user(name,password,sex,age,phone,addr,birth,status,createTime) values(#{name},#{password},#{sex},#{age},#{phone},#{addr},#{birth},#{status},#{createTime})
+	</insert>
+
+    <select id="findUserPage" parameterType="PageService" resultType="user">
+		select * from user where name like #{pname} order by id desc limit #{offset},#{pagesize}
+	</select>
+
+    <!--查询数据库有{#pname}字段，order by是对查询得到的数据排序 id desc是根据查询得到数据根据id降序排序 limit是查询到的范围数据多少  -->
+    <select id="getCountByName" parameterType="string" resultType="int">
+		select count(*) from user where name like #{name}
+	</select>
+
+    <delete id="delUserById" parameterType="int">
+		delete from user where id=#{id}
+	</delete>
+
+    <select id="findUserById" parameterType="int" resultType="User">
+		select * from user where id=#{id}
+	</select>
+
+    <update id="updateUserById" parameterType="user">
+		update user set name=#{name},password=#{password},sex=#{sex},age=#{age},phone=#{phone},addr=#{addr},birth=#{birth},status=#{status} where id = #{id}
+	</update>
+
+    <delete id="delsUser" parameterType="list">
+        delete from user
+        <include refid="sqlDels"></include>
+    </delete>
+
+    <sql id="sqlDels">
+        <where>
+            <foreach collection="list" close=")" item="id" open="id in(" separator=",">
+                #{id}
+            </foreach>
+        </where>
+    </sql>
 </mapper>
