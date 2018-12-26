@@ -1,18 +1,15 @@
 package model;
 
-import java.util.Date;
-import java.util.Objects;
-
-public class Supplier {
+public class Bill {
     private Integer id;
     private String name;
-    private String addr;
     private String type;
-    private String remark;
-    private String status;
+    private String number;
     private String createTime;
+    private String status;
+    private String remark;
 
-    public Supplier() {
+    public Bill() {
     }
 
     public Integer getId() {
@@ -31,14 +28,6 @@ public class Supplier {
         this.name = name;
     }
 
-    public String getAddr() {
-        return addr;
-    }
-
-    public void setAddr(String addr) {
-        this.addr = addr;
-    }
-
     public String getType() {
         return type;
     }
@@ -47,12 +36,12 @@ public class Supplier {
         this.type = type;
     }
 
-    public String getRemark() {
-        return remark;
+    public String getNumber() {
+        return number;
     }
 
-    public void setRemark(String remark) {
-        this.remark = remark;
+    public void setNumber(String number) {
+        this.number = number;
     }
 
     public String getCreateTime() {
@@ -63,6 +52,14 @@ public class Supplier {
         this.createTime = createTime;
     }
 
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
     public String getStatus() {
         return status;
     }
@@ -70,6 +67,4 @@ public class Supplier {
     public void setStatus(String status) {
         this.status = status;
     }
-
-
 }

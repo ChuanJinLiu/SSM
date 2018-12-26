@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为BillDao接口方法提供sql语句配置 -->
+<mapper namespace="dao.BillDao">
+    <select id="findByColumn" statementType="STATEMENT" resultType="model.Bill" parameterType="java.util.HashMap">
+        SELECT * FROM bill WHERE  ${column} = ${key}
+    </select>
+
+    <select id="findList" resultType="model.Bill">
+        SELECT * FROM bill
+    </select>
+
+    <insert id="addBill" parameterType="Bill">
+		insert into Bill(name,type,number,status,createTime) values(#{name},#{type},#{number},#{status},#{createTime})
+	</insert>
+
+    <select id="findBillPage" parameterType="PageService" resultType="bill">
+		select * from bill where name like #{pname} order by id desc limit #{offset},#{pagesize}
+	</select>
+
+    <!--查询数据库有{#pname}字段，order by是对查询得到的数据排序 id desc是根据查询得到数据根据id降序排序 limit是查询到的范围数据多少  -->
+    <select id="getCountByName" parameterType="string" resultType="int">
+		select count(*) from bill where name like #{name}
+	</select>
+
+    <delete id="delBillById" parameterType="int">
+		delete from bill where id=#{id}
+	</delete>
+
+    <select id="findBillById" parameterType="int" resultType="Bill">
+		select * from bill where id=#{id}
+	</select>
+
+    <update id="updateBillById" parameterType="Bill">
+		update Bill set name=#{name},type=#{type},number=#{number},status=#{status},createTime=#{createTime} where id = #{id}
+	</update>
+
+    <delete id="delsBill" parameterType="list">
+        delete from bill
+        <include refid="sqlDels"></include>
+    </delete>
+
+    <sql id="sqlDels">
+        <where>
+            <foreach collection="list" close=")" item="id" open="id in(" separator=",">
+                #{id}
+            </foreach>
+        </where>
+    </sql>
+</mapper>

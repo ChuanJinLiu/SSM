@@ -109,7 +109,6 @@ public class User {
         return birth;
     }
 
-    //用于数据库查询后显示
     public void setBirth(String birth) {
         this.birth = birth;
     }

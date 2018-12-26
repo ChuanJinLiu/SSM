@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为SupplierDao接口方法提供sql语句配置 -->
+<mapper namespace="dao.SupplierDao">
+    <select id="findByColumn" statementType="STATEMENT" resultType="model.Supplier" parameterType="java.util.HashMap">
+        SELECT * FROM supplier WHERE  ${column} = ${key}
+    </select>
+
+    <select id="findList" resultType="model.Supplier">
+        SELECT * FROM supplier
+    </select>
+
+    <insert id="addSupplier" parameterType="Supplier">
+		insert into Supplier(name,type,addr,status,createTime) values(#{name},#{type},#{addr},#{status},#{createTime})
+	</insert>
+
+    <select id="findSupplierPage" parameterType="PageService" resultType="supplier">
+		select * from supplier where name like #{pname} order by id desc limit #{offset},#{pagesize}
+	</select>
+
+    <!--查询数据库有{#pname}字段，order by是对查询得到的数据排序 id desc是根据查询得到数据根据id降序排序 limit是查询到的范围数据多少  -->
+    <select id="getCountByName" parameterType="string" resultType="int">
+		select count(*) from supplier where name like #{name}
+	</select>
+
+    <delete id="delSupplierById" parameterType="int">
+		delete from supplier where id=#{id}
+	</delete>
+
+    <select id="findSupplierById" parameterType="int" resultType="Supplier">
+		select * from supplier where id=#{id}
+	</select>
+
+    <update id="updateSupplierById" parameterType="Supplier">
+		update Supplier set name=#{name},type=#{type},addr=#{addr},status=#{status} where id = #{id}
+	</update>
+
+    <delete id="delsSupplier" parameterType="list">
+        delete from supplier
+        <include refid="sqlDels"></include>
+    </delete>
+
+    <sql id="sqlDels">
+        <where>
+            <foreach collection="list" close=")" item="id" open="id in(" separator=",">
+                #{id}
+            </foreach>
+        </where>
+    </sql>
+</mapper>
